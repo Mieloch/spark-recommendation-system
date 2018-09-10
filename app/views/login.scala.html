@@ -1,0 +1,11 @@
+@(userDataForm: Form[models.UserData])(implicit request: MessagesRequestHeader)
+
+@main("Login") {
+<h1>Login</h1>
+  @helper.form(action = routes.UserController.login()){
+    @helper.CSRF.formField
+    @helper.inputText(userDataForm("name"))
+    @helper.inputText(userDataForm("password"))
+    <input type="submit"></input>
+  }
+}

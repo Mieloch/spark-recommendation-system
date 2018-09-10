@@ -1,0 +1,24 @@
+@(
+rateDataForm: Form[models.RatingListData],
+rateOptions: List[(String, String)] = List("-1"->"unwatched", "1"->"1", "2"->"2", "3"->"3", "4"->"4", "5"->"5")
+
+)(implicit request: MessagesRequestHeader)
+
+@main("Rate movies") {
+  <h1>Rate most popular movies</h1>
+  @helper.form(action = routes.RatingsController.ratings()){
+  @helper.CSRF.formField
+  @helper.input(rateDataForm("userId"), '_label -> "") { (id, name, value, args) =>
+  <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
+  }
+  @helper.repeatWithIndex(rateDataForm("ratings"), min = 1) { (rating, idx) =>
+    @helper.inputText(rating("title"), '_label -> "title", 'size -> 50)
+    @helper.select(rating("rating"), options = rateOptions, '_label -> "rating")
+    @helper.input(rating("movieId"), '_label -> "") { (id, name, value, args) =>
+    <input type="hidden" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
+    }
+    <br>
+  }
+  <input type="submit"></input>
+  }
+}

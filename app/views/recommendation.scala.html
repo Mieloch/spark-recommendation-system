@@ -1,0 +1,25 @@
+@(username:String, topAll: List[models.Recommendation], topMostPopular: List[models.Recommendation])
+
+@main("Recommendations") {
+  <h1>Hi @username!</h1>
+  <a href=@routes.RatingsController.ratingsForm()>Rate movies to get recommendations!</a><br><br>
+
+  @if(topAll.isEmpty || topMostPopular.isEmpty){
+    We calculating your recommendations. Refresh after a while!
+  } else {
+  Top 10 movies from all not rated movies:
+  <ul>
+    @for(r <- topAll){
+    <li>@r.title - @r.rating</li>
+    }
+  </ul><br>
+  Top 10 movies from not rated most popular movies:
+  <ul>
+    @for(r <- topMostPopular){
+    <li>@r.title - @r.rating</li>
+    }
+  </ul>
+  }
+
+
+}
