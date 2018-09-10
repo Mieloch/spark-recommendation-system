@@ -5,7 +5,7 @@
   @helper.form(action = routes.UserController.login()){
     @helper.CSRF.formField
     @helper.inputText(userDataForm("name"))
-    @helper.inputText(userDataForm("password"))
+    @helper.inputPassword(userDataForm("password"))
     <input type="submit"></input>
   }
 }
